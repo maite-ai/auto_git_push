@@ -19,7 +19,7 @@ log_info() {
 }
 
 log_error() {
-  echo -e "${RED}[ERROR]"
+  echo -e "${RED}[ERROR] $1"
 }
 
 log_warning() {
@@ -27,7 +27,7 @@ log_warning() {
 }
 
 log_success() {
-  echo -e "${GREEN} [SUCCESS]"
+  echo -e "${GREEN} [SUCCESS] $1"
 }
 
 # Crea una lista con los distintos challenges de la unidad
