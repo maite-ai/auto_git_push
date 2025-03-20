@@ -15,19 +15,19 @@ NOCOLOR='\033[0m' # para resetear color
 
 # Funciones para imprimir con colorcito ;)
 log_info() {
-  echo -e "[INFO]${NOCOLOR} $1"
+  echo -e "${BLUE}[INFO]${NOCOLOR} $1"
 }
 
 log_error() {
-  echo -e "${RED}[INFO]${NOCOLOR} $1"
+  echo -e "${RED}[ERROR]"
 }
 
 log_warning() {
-  echo -e "${YELLOW}[INFO]${NOCOLOR} $1"
+  echo -e "${YELLOW}[WARNING]${NOCOLOR} $1"
 }
 
 log_success() {
-  echo -e "${GREEN} [INFO]${NOCOLOR} $1"
+  echo -e "${GREEN} [SUCCESS]"
 }
 
 # Crea una lista con los distintos challenges de la unidad
@@ -59,8 +59,10 @@ for challenge in "${challenges[@]}"; do
     fi
   else
     log_warning "Saltando: ${challenge} (no es un repo de Git)"
+    echo ""
   fi
   cd ..
+  echo ""
 done
 
 log_success "===== Proceso completado ====="
