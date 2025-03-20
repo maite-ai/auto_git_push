@@ -27,7 +27,7 @@ log_warning() {
 }
 
 log_success() {
-  echo -e "${GREEN} [SUCCESS] $1"
+  echo -e "${GREEN}[SUCCESS] $1"
 }
 
 # Crea una lista con los distintos challenges de la unidad
@@ -65,4 +65,4 @@ for challenge in "${challenges[@]}"; do
   echo ""
 done
 
-log_success "===== Proceso completado ====="
+echo -e "===== Proceso completado ====="
