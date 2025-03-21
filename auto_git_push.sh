@@ -19,7 +19,7 @@ log_info() {
 }
 
 log_error() {
-  echo -e "${RED}[ERROR] $1"
+  echo -e "${RED}[ERROR] $1${NOCOLOR}"
 }
 
 log_warning() {
@@ -27,31 +27,30 @@ log_warning() {
 }
 
 log_success() {
-  echo -e "${GREEN}[SUCCESS] $1"
+  echo -e "${GREEN}[SUCCESS] $1${NOCOLOR}"
 }
 
 # Crea una lista con los distintos challenges de la unidad
 folder_name=$(basename "$(pwd)")
-log_info "Obteniendo lista de challenges de la unidad ${folder_name}"
+echo -e "${UNDERLINE}Obteniendo lista de challenges de la unidad ${folder_name}${NOCOLOR}"
 challenges=(*)
 
 # Itero sobre la lista
 for challenge in "${challenges[@]}"; do
   if [ -d "$challenge/.git" ]; then
     log_info "Procesando challenge (repo Git): ${challenge}"
-
     cd "${challenge}" || continue
 
     if git status --porcelain | grep --quiet ".ipynb"; then
       log_info "Se encontraron cambios para pushear!"
       git add *.ipynb
-      git commit -m "Subiendo notebook de ${folder_name}/${challenge}"
+      git commit -m "Uploading ${folder_name}/${challenge} notebook"
 
       push_output=$(git push origin master 2>&1)
       if git push origin master; then
-        log_success "Subida exitosa a GitHub del challenge ${challenge}"
+        log_success "Subida exitosa del challenge ${challenge} a GitHub"
       else
-        log_error "Falló el push. Debido al siguiente error:"
+        log_error "Falló la subida debido al siguiente error:"
         echo "${push_output}"
       fi
     else
@@ -59,10 +58,9 @@ for challenge in "${challenges[@]}"; do
     fi
   else
     log_warning "Saltando: ${challenge} (no es un repo de Git)"
-    echo ""
   fi
   cd ..
   echo ""
 done
 
-echo -e "===== Proceso completado ====="
+echo -e "${BOLD}===== Proceso completado =====${NOCOLOR}"
